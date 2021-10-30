@@ -1,0 +1,15 @@
+{
+  "name": "fontmoji",
+  "version": "1.0.0",
+  "description": "Create text art with emojis!",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "fontmoji": "node ./scripts/create-emoji-text.js"
+  },
+  "author": "Matthew Carvalho-Dagenais",
+  "license": "MIT",
+  "dependencies": {
+    "canvas": "^2.8.0"
+  }
+}
