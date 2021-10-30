@@ -188,54 +188,125 @@ const font = {
         X,O,O,O,n,
         X,X,X,X,n
     ],
-    // "0": [
-
-    // ],
-    // "1": [
-
-    // ],
-    // "2": [
-
-    // ],
-    // "3": [
-
-    // ],
-    // "4": [
-
-    // ],
-    // "5": [
-
-    // ],
-    // "6": [
-
-    // ],
-    // "7": [
-
-    // ],
-    // "8": [
-
-    // ],
-    // "9": [
-
-    // ],
-    // ".": [
-
-    // ],
-    // ",": [
-
-    // ],
-    // "'": [
-
-    // ],
-    // "\"": [
-
-    // ],
-    // "?": [
-
-    // ],
-    // "!": [
-
-    // ]
+    "0": [
+        O,X,X,O,n,
+        X,O,O,X,n,
+        X,O,O,X,n,
+        X,O,O,X,n,
+        O,X,X,O,n
+    ],
+    "1": [
+        O,X,X,O,n,
+        O,X,X,O,n,
+        O,O,X,O,n,
+        O,O,X,O,n,
+        X,X,X,X,n
+    ],
+    "2": [
+        X,X,X,X,n,
+        O,O,O,X,n,
+        X,X,X,X,n,
+        X,O,O,O,n,
+        X,X,X,X,n
+    ],
+    "3": [
+        X,X,X,X,n,
+        O,O,O,X,n,
+        X,X,X,X,n,
+        O,O,O,X,n,
+        X,X,X,X,n
+    ],
+    "4": [
+        X,O,O,X,n,
+        X,O,O,X,n,
+        X,X,X,X,n,
+        O,O,O,X,n,
+        O,O,O,X,n
+    ],
+    "5": [
+        X,X,X,X,n,
+        X,O,O,O,n,
+        X,X,X,X,n,
+        O,O,O,X,n,
+        X,X,X,X,n
+    ],
+    "6": [
+        X,X,X,O,n,
+        X,O,O,O,n,
+        X,X,X,X,n,
+        X,O,O,X,n,
+        X,X,X,X,n
+    ],
+    "7": [
+        X,X,X,X,n,
+        O,O,O,X,n,
+        O,O,O,X,n,
+        O,O,O,X,n,
+        O,O,O,X,n
+    ],
+    "8": [
+        X,X,X,X,n,
+        X,O,O,X,n,
+        X,X,X,X,n,
+        X,O,O,X,n,
+        X,X,X,X,n
+    ],
+    "9": [
+        X,X,X,X,n,
+        X,O,O,X,n,
+        X,X,X,X,n,
+        O,O,O,X,n,
+        O,O,O,X,n
+    ],
+    ".": [
+        O,O,O,O,n,
+        O,O,O,O,n,
+        O,O,O,O,n,
+        O,O,X,X,n,
+        O,O,X,X,n
+    ],
+    ",": [
+        O,O,O,O,n,
+        O,O,O,O,n,
+        O,O,O,O,n,
+        O,O,O,X,n,
+        O,O,X,O,n
+    ],
+    "'": [
+        O,O,X,O,n,
+        O,O,X,O,n,
+        O,O,O,O,n,
+        O,O,O,O,n,
+        O,O,O,O,n
+    ],
+    "\"": [
+        O,X,O,X,n,
+        O,X,O,X,n,
+        O,O,O,O,n,
+        O,O,O,O,n,
+        O,O,O,O,n
+    ],
+    "?": [
+        O,X,X,O,n,
+        X,O,O,X,n,
+        O,O,X,O,n,
+        O,O,O,O,n,
+        O,O,X,O,n
+    ],
+    "!": [
+        O,X,X,O,n,
+        O,X,X,O,n,
+        O,X,X,O,n,
+        O,O,O,O,n,
+        O,X,X,O,n
+    ],
+    " ": [
+        O,O,O,O,n,
+        O,O,O,O,n,
+        O,O,O,O,n,
+        O,O,O,O,n,
+        O,O,O,O,n
+    ],
 };
 
 export { font };
