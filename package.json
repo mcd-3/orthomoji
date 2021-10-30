@@ -1,11 +1,11 @@
 {
-  "name": "fontmoji",
+  "name": "orthomoji",
   "version": "1.0.0",
   "description": "Create text art with emojis!",
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "fontmoji": "node ./scripts/create-emoji-text.js"
+    "orthomoji": "node ./scripts/create-emoji-text.js"
   },
   "author": "Matthew Carvalho-Dagenais",
   "license": "MIT",
