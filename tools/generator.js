@@ -14,6 +14,7 @@ class Orthomoji {
         this.#canvas = new Canvas(10, 10);
         this.text = null;
         this.emoji = null;
+        this.spaceEmoji = ' ';
     }
 
     setText(str) {
@@ -24,6 +25,15 @@ class Orthomoji {
     setEmoji(emoji) {
         if (hasValidEmoji(emoji)) {
             this.emoji = getFirstEmoji(emoji);
+        } else {
+            throw new Error(`'${emoji}' is not a valid emoji'`);
+        }
+        return this;
+    }
+
+    setSpaceEmoji(emoji) {
+        if (hasValidEmoji(emoji)) {
+            this.spaceEmoji = getFirstEmoji(emoji);
         } else {
             throw new Error(`'${emoji}' is not a valid emoji'`);
         }
@@ -55,7 +65,7 @@ class Orthomoji {
         const editedCanvas = await addTextToCanvas(
             this.#canvas,
             this.text,
-            emojifyFont(font, this.emoji)
+            emojifyFont(font, this.emoji, this.spaceEmoji)
         );
 
         // TODO: Clean
