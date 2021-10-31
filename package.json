@@ -10,6 +10,7 @@
   "author": "Matthew Carvalho-Dagenais",
   "license": "MIT",
   "dependencies": {
-    "canvas": "^2.8.0"
+    "canvas": "^2.8.0",
+    "node-canvas-with-twemoji": "^0.1.6"
   }
 }

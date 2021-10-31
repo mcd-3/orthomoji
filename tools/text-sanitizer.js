@@ -1,4 +1,4 @@
-const VALID_CHARS_REGEX = /[^a-z0-9 ,.?!]/ig;
+const VALID_CHARS_REGEX = /[^a-z0-9 ,.?!\n]/ig;
 
 /**
  * Sanitizes a string by removing all invalid characters and making all letters uppercase
@@ -7,7 +7,7 @@ const VALID_CHARS_REGEX = /[^a-z0-9 ,.?!]/ig;
  * @returns {string} Sanitized string with only valid characters
  */
 const sanitizeText = (str) => {
-    const newStr = str.toUpperCase();
+    const newStr = str.toLowerCase();
     return newStr.replace(VALID_CHARS_REGEX, '');
 };
 

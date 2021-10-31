@@ -14,7 +14,7 @@ const hasValidEmoji = str => CONTAINS_EMOJI_REGEX.test(str);
  * Returns the first available emoji in a string
  *
  * @param {string} str - string that should contain an emoji
- * @returns {Array}
+ * @returns {Array} Data from regex check
  */
 const getFirstEmoji = str => str.match(CONTAINS_EMOJI_REGEX)[0];
 
@@ -62,4 +62,4 @@ const emojifyFont = (fontJson, emoji, space = ' ', newline = '')  => {
     return { invalid: true };
 }
 
-export { emojifyFont };
+export { emojifyFont, hasValidEmoji, getFirstEmoji };
