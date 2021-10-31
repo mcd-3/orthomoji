@@ -58,7 +58,7 @@ class Orthomoji {
             emojifyFont(font, this.emoji)
         );
 
-        // TODO: Clean me
+        // TODO: Clean
         const out = fs.createWriteStream('./text.png')   
         const stream = editedCanvas.pngStream();
         stream.on('data', function(chunk){out.write(chunk); });

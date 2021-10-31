@@ -2,10 +2,10 @@ import pkg from 'node-canvas-with-twemoji';
 const { fillTextWithTwemoji } = pkg;
 
 // Canvas padding, letter sizes, emojis per letter row, and emojis per letter column
-const PADDING_WIDTH = 20;
-const PADDING_HEIGHT = 20;
-const CHAR_PIECE_SIZE = 8;
+const CHAR_PIECE_SIZE = 24;
 const BITS_PER_CHAR = 5;
+const PADDING_WIDTH = CHAR_PIECE_SIZE * 2;
+const PADDING_HEIGHT = CHAR_PIECE_SIZE * 2;
 const WIDTH_PER_LETTER = CHAR_PIECE_SIZE * BITS_PER_CHAR;
 const HEIGHT_PER_LINE = CHAR_PIECE_SIZE * BITS_PER_CHAR;
 
@@ -17,14 +17,16 @@ const HEIGHT_PER_LINE = CHAR_PIECE_SIZE * BITS_PER_CHAR;
  * @returns {HTMLCanvasElement} Newly resized canvas
  */
 const resizeCanvas = (canvas, str) => {
-    const chars = str.length;
+    const longestLine = str.split('\n').sort((a, b) => b.length - a.length)[0];
     const lines = (str.match(/\n/g) || []).length + 1;
     // Add padding on both L and R sides, then add space for each letter being typed
-    canvas.width = (PADDING_WIDTH * 2) + (chars * BITS_PER_CHAR * WIDTH_PER_LETTER);
+    canvas.width = (PADDING_WIDTH * 2) + (longestLine.length * WIDTH_PER_LETTER);
     // Add padding for both up and down, then add space for each letter being typed
-    canvas.height = (PADDING_HEIGHT * 2) + (lines * BITS_PER_CHAR * HEIGHT_PER_LINE);
+    canvas.height = (PADDING_HEIGHT * 2) + (lines * HEIGHT_PER_LINE);
     return canvas;
 };
+
+// Find longest string of chars seperated by \n 
 
 /**
  * Adds a strinf of text to a canvas
@@ -40,7 +42,7 @@ const addTextToCanvas = async (canvas, str, fontSet) => {
     ctx.font = `${CHAR_PIECE_SIZE}px serif`;
 
     // Set the starting point
-    let currentX = PADDING_WIDTH;
+    let currentX = PADDING_WIDTH / 1.5 ;
     let currentY = PADDING_HEIGHT;
 
     // Draw each row of a letter then adds spacing or a newline
@@ -62,8 +64,8 @@ const addTextToCanvas = async (canvas, str, fontSet) => {
             currentY = topY;
             currentX = topX + spacing;
         } else {
-            currentY = topY + spacing + BITS_PER_CHAR;
-            currentX = PADDING_WIDTH;
+            currentY = topY + spacing + CHAR_PIECE_SIZE;
+            currentX = PADDING_WIDTH / 1.5;
         }
     }
     return editedCanvas;
