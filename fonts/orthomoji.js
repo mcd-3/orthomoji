@@ -41,7 +41,7 @@ const font = {
         X,O,O,O,n,
         X,X,X,X,n
     ],
-    "e": [
+    "f": [
         X,X,X,X,n,
         X,O,O,O,n,
         X,X,X,X,n,
