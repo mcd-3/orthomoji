@@ -15,6 +15,7 @@ class Orthomoji {
         this.text = null;
         this.emoji = null;
         this.spaceEmoji = ' ';
+        this.emojiSize = 36;
     }
 
     setText(str) {
@@ -37,6 +38,14 @@ class Orthomoji {
         } else {
             throw new Error(`'${emoji}' is not a valid emoji'`);
         }
+        return this;
+    }
+
+    setEmojiSize(size) {
+        if (typeof size !== 'number') {
+            throw new Error(`'${size}' is not a valid size. Enter a number instead'`);
+        }
+        this.emojiSize = size;
         return this;
     }
 
@@ -65,7 +74,8 @@ class Orthomoji {
         const editedCanvas = await addTextToCanvas(
             this.#canvas,
             this.text,
-            emojifyFont(font, this.emoji, this.spaceEmoji)
+            emojifyFont(font, this.emoji, this.spaceEmoji),
+            this.emojiSize
         );
 
         // TODO: Clean
@@ -80,41 +90,11 @@ class Orthomoji {
  * TODO: Fix me up + clean me up
  */
 const generateEmojiTextImage = () => {
-    // Init
-    var canvas = new Canvas(800, 800);
-    var context = canvas.getContext('2d');
-
-    // Background
-    var r = Math.floor((Math.random() * 256));
-    var g = Math.floor((Math.random() * 256));
-    var b = Math.floor((Math.random() * 256));
-    var color = "rgb("+r+","+g+","+b+")";
-
-    const temp = 'HI\nmy \nname is matt\nwhats yours?';
-    var count = (temp.match(/\n/g) || []).length;
-
     const generator = new Orthomoji();
     generator
-        .setText('Hi!\nI\'m Matt\nNice to meet you')
+        .setText('Hi!')
         .setEmoji('😀')
         .generate('./text.png')
-
-    // draw box
-    // context.beginPath();
-    // context.moveTo(0, 0);
-    // context.lineTo(0, 800);
-    // context.lineTo(800, 800);
-    // context.lineTo(800, 0);
-    // context.closePath();
-    // context.lineWidth = 5;
-    // context.fillStyle = color;
-    // context.fill();
-
-    // save canvas image as data url (png format by default)
-    // const out = fs.createWriteStream('./text.png')   
-    // const stream = canvas.pngStream();
-    // stream.on('data', function(chunk){out.write(chunk); });
-    // stream.on('end', function(){console.log('saved png'); }); 
 }
 
 export { generateEmojiTextImage };

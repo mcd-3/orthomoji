@@ -1,13 +1,42 @@
 import pkg from 'node-canvas-with-twemoji';
 const { fillTextWithTwemoji } = pkg;
 
-// Canvas padding, letter sizes, emojis per letter row, and emojis per letter column
-const CHAR_PIECE_SIZE = 24;
+/**
+ * Number of characters per row/column in a letter
+ */
 const BITS_PER_CHAR = 5;
-const PADDING_WIDTH = CHAR_PIECE_SIZE * 2;
-const PADDING_HEIGHT = CHAR_PIECE_SIZE * 2;
-const WIDTH_PER_LETTER = CHAR_PIECE_SIZE * BITS_PER_CHAR;
-const HEIGHT_PER_LINE = CHAR_PIECE_SIZE * BITS_PER_CHAR;
+
+/**
+ * Gets the width of a letter
+ *
+ * @param {number} fontSize - Size of character (not letter)
+ * @returns {number} Calculated width
+ */
+const getWidthPerLetter = fontSize => fontSize * BITS_PER_CHAR;
+
+/**
+ * Gets the height of a letter
+ *
+ * @param {number} fontSize - Size of character (not letter)
+ * @returns {number} Calculated height
+ */
+const getHeightPerLetter = fontSize => fontSize * BITS_PER_CHAR;
+
+/**
+ * Gets the padding width of the canvas
+ *
+ * @param {number} fontSize - Size of character (not letter)
+ * @returns {number} Calculated width
+ */
+const getPaddingWidth = fontSize => fontSize * 2;
+
+/**
+ * Gets the padding height of the canvas
+ *
+ * @param {number} fontSize - Size of character (not letter)
+ * @returns {number} Calculated height
+ */
+const getPaddingHeight = fontSize => fontSize * 2;
 
 /**
  * Resizes a canvas to properly apply text
@@ -16,17 +45,15 @@ const HEIGHT_PER_LINE = CHAR_PIECE_SIZE * BITS_PER_CHAR;
  * @param {string} str - String we will print to canvas.
  * @returns {HTMLCanvasElement} Newly resized canvas
  */
-const resizeCanvas = (canvas, str) => {
+const resizeCanvas = (canvas, str, fontSize) => {
     const longestLine = str.split('\n').sort((a, b) => b.length - a.length)[0];
     const lines = (str.match(/\n/g) || []).length + 1;
     // Add padding on both L and R sides, then add space for each letter being typed
-    canvas.width = (PADDING_WIDTH * 2) + (longestLine.length * WIDTH_PER_LETTER);
+    canvas.width = (getPaddingWidth(fontSize) * 2) + (longestLine.length * getWidthPerLetter(fontSize));
     // Add padding for both up and down, then add space for each letter being typed
-    canvas.height = (PADDING_HEIGHT * 2) + (lines * HEIGHT_PER_LINE);
+    canvas.height = (getPaddingHeight(fontSize) * 2) + (lines * getHeightPerLetter(fontSize));
     return canvas;
 };
-
-// Find longest string of chars seperated by \n 
 
 /**
  * Adds a strinf of text to a canvas
@@ -36,36 +63,36 @@ const resizeCanvas = (canvas, str) => {
  * @param {JSON} fontSet - JSON object containing the font set
  * @returns {HTMLCanvasElement} Canvas with text drawn to it
  */
-const addTextToCanvas = async (canvas, str, fontSet) => {
-    let editedCanvas = resizeCanvas(canvas, str);
+const addTextToCanvas = async (canvas, str, fontSet, fontSize) => {
+    let editedCanvas = resizeCanvas(canvas, str, fontSize);
     const ctx = editedCanvas.getContext('2d');
-    ctx.font = `${CHAR_PIECE_SIZE}px serif`;
+    ctx.font = `${fontSize}px serif`;
 
     // Set the starting point
-    let currentX = PADDING_WIDTH / 1.5 ;
-    let currentY = PADDING_HEIGHT;
+    let currentX = getPaddingWidth(fontSize) / 1.5 ;
+    let currentY = getPaddingHeight(fontSize);
 
     // Draw each row of a letter then adds spacing or a newline
     for (const c of str) {
-        const spacing = (CHAR_PIECE_SIZE * BITS_PER_CHAR);
+        const spacing = (fontSize * BITS_PER_CHAR);
         let topX = currentX;
         let topY = currentY;
 
         if (c !== '\n') {
             const fontBits = fontSet[c];
             for (const elem of fontBits) {
-                currentX += CHAR_PIECE_SIZE;
+                currentX += fontSize;
                 if (elem === '') {
                     currentX = topX;
-                    currentY += CHAR_PIECE_SIZE;
+                    currentY += fontSize;
                 }
                 await fillTextWithTwemoji(ctx, elem, currentX, currentY);
             };
             currentY = topY;
             currentX = topX + spacing;
         } else {
-            currentY = topY + spacing + CHAR_PIECE_SIZE;
-            currentX = PADDING_WIDTH / 1.5;
+            currentY = topY + spacing + fontSize;
+            currentX = getPaddingWidth(fontSize) / 1.5;
         }
     }
     return editedCanvas;
