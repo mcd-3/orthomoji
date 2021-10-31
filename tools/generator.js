@@ -1,9 +1,9 @@
 import pkg from 'canvas';
-import fs from 'fs';
 import { sanitizeText } from '../tools/text-sanitizer.js';
 import { emojifyFont, hasValidEmoji, getFirstEmoji } from '../tools/emoji.js';
 import { font } from '../fonts/orthomoji.js';
 import { addTextToCanvas } from '../tools/canvas.js';
+import { saveToDestination } from '../tools/image-saver.js';
 
 const { Canvas } = pkg;
 
@@ -59,6 +59,7 @@ class Orthomoji {
     }
 
     async generate(destination) {
+        // A bit of error checking
         if (this.text === null || this.emoji === null) {
             let errorStr = '';
             if (this.text === null && this.emoji === null) {
@@ -77,24 +78,9 @@ class Orthomoji {
             emojifyFont(font, this.emoji, this.spaceEmoji),
             this.emojiSize
         );
-
-        // TODO: Clean
-        const out = fs.createWriteStream('./text.png')   
-        const stream = editedCanvas.pngStream();
-        stream.on('data', function(chunk){out.write(chunk); });
-        stream.on('end', function(){console.log('saved png'); }); 
+        
+        saveToDestination(destination, editedCanvas);
     }
 };
 
-/**
- * TODO: Fix me up + clean me up
- */
-const generateEmojiTextImage = () => {
-    const generator = new Orthomoji();
-    generator
-        .setText('Hi!')
-        .setEmoji('😀')
-        .generate('./text.png')
-}
-
-export { generateEmojiTextImage };
+export { Orthomoji };
