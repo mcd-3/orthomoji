@@ -5,6 +5,17 @@
   "type": "module",
   "main": "index.js",
   "author": "Matthew Carvalho-Dagenais",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mcd-3/orthomoji.git"
+  },
+  "keywords": [
+    "orthomoji",
+    "orthography",
+    "emoji",
+    "emoji words",
+    "text art"
+  ],
   "license": "MIT",
   "dependencies": {
     "canvas": "^2.8.0",
