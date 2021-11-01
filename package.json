@@ -4,9 +4,6 @@
   "description": "Create text art with emojis!",
   "type": "module",
   "main": "index.js",
-  "scripts": {
-    "orthomoji-example": "node ./scripts/create-emoji-text-example.js"
-  },
   "author": "Matthew Carvalho-Dagenais",
   "license": "MIT",
   "dependencies": {
