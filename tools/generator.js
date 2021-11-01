@@ -7,6 +7,11 @@ import { saveToDestination } from '../tools/image-saver.js';
 
 const { Canvas } = pkg;
 
+/**
+ * Base Orthomoji class. Generates an emoji-text image
+ * 
+ * It is mandatory to set the text and emoji before calling .generate()
+ */
 class Orthomoji {
     #canvas
 
@@ -19,11 +24,25 @@ class Orthomoji {
         this.emojiSize = 36;
     }
 
+    /**
+     * Sets the text to be displayed on the image 
+     * =Mandatory
+     *
+     * @param {string} str - Text to add to the image
+     * @returns {this} Chain with other functions to generate an image
+     */
     setText(str) {
         this.text = sanitizeText(str);
         return this;
     }
 
+    /**
+     * Sets the emoji to make letters out of
+     * =Mandatory
+     *
+     * @param {string} emoji - Emoji to use to build letters
+     * @returns {this} Chain with other functions to generate an image
+     */
     setEmoji(emoji) {
         if (hasValidEmoji(emoji)) {
             this.emoji = getFirstEmoji(emoji);
@@ -33,6 +52,12 @@ class Orthomoji {
         return this;
     }
 
+    /**
+     * Sets the emoji to fill in letter spaces out of
+     *
+     * @param {string} emoji - Emoji to use to replace whitespace with
+     * @returns {this} Chain with other functions to generate an image
+     */
     setSpaceEmoji(emoji) {
         if (hasValidEmoji(emoji)) {
             this.spaceEmoji = getFirstEmoji(emoji);
@@ -42,6 +67,12 @@ class Orthomoji {
         return this;
     }
 
+    /**
+     * Sets the size in pixels for the emojis
+     *
+     * @param {number} size - Size in px to use for emojis
+     * @returns {this} Chain with other functions to generate an image
+     */
     setEmojiSize(size) {
         if (typeof size !== 'number') {
             throw new Error(`'${size}' is not a valid size. Enter a number instead'`);
@@ -50,11 +81,23 @@ class Orthomoji {
         return this;
     }
 
+    /**
+     * Sets the background style of the image
+     *
+     * @param {string} style - Valid css style/colour
+     * @returns {this} Chain with other functions to generate an image
+     */
     setBackgroundStyle(style) {
         this.bgStyle = style;
         return this;
     }
 
+    /**
+     * Generates an emoji-text image and saves it to a destination
+     * =Mandatory
+     * 
+     * @param {string} destination - Path of where to save the image to
+     */
     async generate(destination) {
         // A bit of error checking
         if (this.text === null || this.emoji === null) {
