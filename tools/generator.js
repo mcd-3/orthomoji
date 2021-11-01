@@ -14,6 +14,7 @@ class Orthomoji {
         this.#canvas = new Canvas(10, 10);
         this.text = null;
         this.emoji = null;
+        this.bgStyle = null;
         this.spaceEmoji = ' ';
         this.emojiSize = 36;
     }
@@ -49,12 +50,8 @@ class Orthomoji {
         return this;
     }
 
-    setBackgroundColor(style) {
-        try {
-            this.#canvas.getContext('2d').fillStyle = style;
-        } catch (e) {
-            throw new Error(`'${style}' is not a valid background color or style`)
-        }
+    setBackgroundStyle(style) {
+        this.bgStyle = style;
         return this;
     }
 
@@ -76,9 +73,10 @@ class Orthomoji {
             this.#canvas,
             this.text,
             emojifyFont(font, this.emoji, this.spaceEmoji),
-            this.emojiSize
+            this.emojiSize,
+            this.bgStyle
         );
-        
+
         saveToDestination(destination, editedCanvas);
     }
 };

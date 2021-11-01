@@ -39,20 +39,38 @@ const getPaddingWidth = fontSize => fontSize * 2;
 const getPaddingHeight = fontSize => fontSize * 2;
 
 /**
- * Resizes a canvas to properly apply text
+ * Resizes a canvas to properly apply text and changes the background style if needed
  *
  * @param {HTMLCanvasElement} canvas - Canvas that we will resize
  * @param {string} str - String we will print to canvas.
  * @returns {HTMLCanvasElement} Newly resized canvas
  */
-const resizeCanvas = (canvas, str, fontSize) => {
+const editCanvas = (canvas, str, fontSize, style) => {
     const longestLine = str.split('\n').sort((a, b) => b.length - a.length)[0];
     const lines = (str.match(/\n/g) || []).length + 1;
     // Add padding on both L and R sides, then add space for each letter being typed
     canvas.width = (getPaddingWidth(fontSize) * 2) + (longestLine.length * getWidthPerLetter(fontSize));
     // Add padding for both up and down, then add space for each letter being typed
     canvas.height = (getPaddingHeight(fontSize) * 2) + (lines * getHeightPerLetter(fontSize));
-    return canvas;
+
+    return (style !== null) ? changeBGCanvas(canvas, style) : canvas;
+};
+
+/**
+ * Changes the background style/colour of a canvas
+ *
+ * @param {HTMLCanvasElement} canvas - Canvas to change BG colour of
+ * @param {string} style - Valid CSS colour
+ * @returns {HTMLCanvasElement} Newly edited canvas element
+ */
+const changeBGCanvas = (canvas, style) => {
+    try {
+        canvas.getContext('2d').fillStyle = style;
+        canvas.getContext('2d').fillRect(0, 0, canvas.width, canvas.height);
+        return canvas;
+    } catch (e) {
+        throw new Error(`${style} is not a correct style for the background`);
+    }
 };
 
 /**
@@ -63,8 +81,9 @@ const resizeCanvas = (canvas, str, fontSize) => {
  * @param {JSON} fontSet - JSON object containing the font set
  * @returns {HTMLCanvasElement} Canvas with text drawn to it
  */
-const addTextToCanvas = async (canvas, str, fontSet, fontSize) => {
-    let editedCanvas = resizeCanvas(canvas, str, fontSize);
+const addTextToCanvas = async (canvas, str, fontSet, fontSize, bgStyle) => {
+    let editedCanvas = editCanvas(canvas, str, fontSize, bgStyle);
+
     const ctx = editedCanvas.getContext('2d');
     ctx.font = `${fontSize}px serif`;
 
