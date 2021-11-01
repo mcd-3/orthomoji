@@ -1,3 +1,3 @@
-// import { Orthomoji } from './tools/generator.js';
+import { Orthomoji } from './tools/generator.js';
 
-// export { Orthomoji };
+export { Orthomoji };
