@@ -51,7 +51,7 @@ const editCanvas = (canvas, str, fontSize, style) => {
     // Add padding on both L and R sides, then add space for each letter being typed
     canvas.width = (getPaddingWidth(fontSize) * 2) + (longestLine.length * getWidthPerLetter(fontSize));
     // Add padding for both up and down, then add space for each letter being typed
-    canvas.height = (getPaddingHeight(fontSize) * 2) + (lines * getHeightPerLetter(fontSize));
+    canvas.height = (getPaddingHeight(fontSize)) + (lines * getHeightPerLetter(fontSize));
 
     return (style !== null) ? changeBGCanvas(canvas, style) : canvas;
 };
@@ -110,7 +110,7 @@ const addTextToCanvas = async (canvas, str, fontSet, fontSize, bgStyle) => {
             currentY = topY;
             currentX = topX + spacing;
         } else {
-            currentY = topY + spacing + fontSize;
+            currentY = topY + spacing;
             currentX = getPaddingWidth(fontSize) / 1.5;
         }
     }
