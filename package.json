@@ -5,7 +5,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "orthomoji": "node ./scripts/create-emoji-text.js"
+    "orthomoji-example": "node ./scripts/create-emoji-text-example.js"
   },
   "author": "Matthew Carvalho-Dagenais",
   "license": "MIT",
