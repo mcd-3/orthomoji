@@ -1,13 +1,17 @@
 import fs from 'fs';
 
 /**
- * Saves an image to a given directory
+ * Saves an image to a given directory. Will create a new directory if path doesn't exist
  *
  * @param {string} destination - Destination to save to
  * @param {HTMLCanvasElement} canvas - Canvas element to save as an image
  */
 const saveToDestination = (destination, canvas) => {
     try {
+        if (!fs.existsSync(destination)){
+            fs.mkdirSync(destination, { recursive: true });
+        }
+        
         const fileName = `orthomoji_${new Date().getTime()}.png`;
         const out = fs.createWriteStream(`${destination}${fileName}`);
         const stream = canvas.pngStream();

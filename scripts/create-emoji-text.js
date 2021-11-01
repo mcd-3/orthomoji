@@ -1,11 +1,9 @@
 import { Orthomoji } from '../tools/generator.js';
-import { emojifyFont } from '../tools/emoji.js';
-import { font } from '../fonts/orthomoji.js';
 
-emojifyFont(font, '😀');
-
-const generator = new Orthomoji();
-generator
-    .setText('Hi!')
+// Try it using `npm run orthomoji`
+// Change whatever you'd like
+const orthomoji = new Orthomoji();
+orthomoji
+    .setText('Hello Orthomoji!')
     .setEmoji('😀')
-    .generate('./')
+    .generate('./build/')
