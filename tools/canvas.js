@@ -75,7 +75,7 @@ const changeBGCanvas = (canvas, style) => {
 };
 
 /**
- * Adds a strinf of text to a canvas
+ * Adds a string of text to a canvas
  *
  * @param {HTMLCanvasElement} canvas - Canvas we will apply text to
  * @param {string} str - String we will apply to canvas

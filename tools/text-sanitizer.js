@@ -1,3 +1,6 @@
+/**
+ * Regex that checks for valid characters in a string
+ */
 const VALID_CHARS_REGEX = /[^a-z0-9 ,.?!'"\n]/ig;
 
 /**

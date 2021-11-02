@@ -8,7 +8,11 @@ Create image-based messages with emojis!
 ## Installation
 You may install Orthomoji using NPM:
 ```shell
+// From NPM directly
 npm install orthomoji --save
+
+// From GitHub
+npm install git+https://github.com/mcd-3/orthomoji.git
 ```
 
 ## How to use
@@ -21,7 +25,7 @@ const orthomoji = new Orthomoji();
 
 Once the above is done, simply chain some functions to generate an image!
 ```js
-// Make sure that 'setText` and 'setEmoji' are included otherwise it won't complete.
+// Make sure that 'setText' and 'setEmoji' are included otherwise it won't complete.
 // Make sure that 'generate' is the final function call in the chain.
 orthomoji
     .setText('Hello Orthomoji!')
@@ -29,7 +33,11 @@ orthomoji
     .generate('./path-to-store-image/')
 ```
 
+...and that's it! You can now create an Orthomoji image 🎉
+
 ## Functions
+Orthomoji provides a few extra options to customize your text:
+
 | Function           | Mandatory | Description                                        |
 |:------------------:|:---------:|:--------------------------------------------------:|
 |`setText`           | Yes       | Sets the text that will be emojified into an image |

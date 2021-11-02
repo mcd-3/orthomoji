@@ -1,6 +1,9 @@
 import { BLANK_SPACE, EMOJI_CHAR } from '../fonts/font-data-chars.js';
 
-const CONTAINS_EMOJI_REGEX = /\p{Extended_Pictographic}/u;;
+/**
+ * Regex that checks if a string contains an emoji
+ */
+const CONTAINS_EMOJI_REGEX = /\p{Extended_Pictographic}/u;
 
 /**
  * Verifies if the string contains an emoji
