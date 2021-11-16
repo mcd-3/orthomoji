@@ -90,10 +90,10 @@ const editCanvas = (canvas, str, fontSize, style, borderStyle) => {
         + (getAddedBorderWidth(borderStyle) * 2);
     canvas.height = (lines > 1) ? height + (fontSize * (lines - 1)) : height;
 
-    // Change border, if present
-    const newCanvas = drawBorderToCanvas(canvas, borderStyle);
+    // Change background style, if present
+    const newCanvas = (style !== null) ? changeBGCanvas(canvas, style) : canvas;
 
-    return (style !== null) ? changeBGCanvas(newCanvas, style) : newCanvas;
+    return drawBorderToCanvas(newCanvas, borderStyle);
 };
 
 /**
