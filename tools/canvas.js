@@ -1,3 +1,4 @@
+import { drawBorderToCanvas } from './../tools/border.js';
 import pkg from 'node-canvas-with-twemoji';
 const { fillTextWithTwemoji } = pkg;
 
@@ -38,6 +39,12 @@ const getPaddingWidth = fontSize => fontSize * 2;
  */
 const getPaddingHeight = fontSize => fontSize * 2;
 
+const getAddedBorderWidth = borderStyle => {
+    return (borderStyle.width !== undefined)
+        ? borderStyle.width
+        : 0;
+}
+
 /**
  * Resizes a canvas to properly apply text and changes the background style if needed
  *
@@ -45,16 +52,25 @@ const getPaddingHeight = fontSize => fontSize * 2;
  * @param {string} str - String we will print to canvas.
  * @returns {HTMLCanvasElement} Newly resized canvas
  */
-const editCanvas = (canvas, str, fontSize, style) => {
+const editCanvas = (canvas, str, fontSize, style, borderStyle) => {
     const longestLine = str.split('\n').sort((a, b) => b.length - a.length)[0];
     const lines = (str.match(/\n/g) || []).length + 1;
+
     // Add padding on both L and R sides, then add space for each letter being typed
-    canvas.width = (getPaddingWidth(fontSize) * 2) + (longestLine.length * getWidthPerLetter(fontSize));
+    canvas.width = (getPaddingWidth(fontSize) * 2) 
+        + (longestLine.length * getWidthPerLetter(fontSize))
+        + (getAddedBorderWidth(borderStyle) * 2);
+
     // Add padding for both up and down, then add space for each letter being typed
-    const height = (getPaddingHeight(fontSize)) + (lines * getHeightPerLetter(fontSize));
+    const height = (getPaddingHeight(fontSize)) 
+        + (lines * getHeightPerLetter(fontSize))
+        + (getAddedBorderWidth(borderStyle) * 2);
     canvas.height = (lines > 1) ? height + (fontSize * (lines - 1)) : height;
 
-    return (style !== null) ? changeBGCanvas(canvas, style) : canvas;
+    // Change border, if present
+    const newCanvas = drawBorderToCanvas(canvas, borderStyle);
+
+    return (style !== null) ? changeBGCanvas(newCanvas, style) : newCanvas;
 };
 
 /**
@@ -80,17 +96,27 @@ const changeBGCanvas = (canvas, style) => {
  * @param {HTMLCanvasElement} canvas - Canvas we will apply text to
  * @param {string} str - String we will apply to canvas
  * @param {JSON} fontSet - JSON object containing the font set
+ * @param {number} fontSize - Size of the font to print
+ * @param {string} bgStyle - Background style of the canvas
+ * @param {JSON} borderStyle - Object that determines how to style a border
  * @returns {HTMLCanvasElement} Canvas with text drawn to it
  */
-const addTextToCanvas = async (canvas, str, fontSet, fontSize, bgStyle) => {
-    let editedCanvas = editCanvas(canvas, str, fontSize, bgStyle);
+const addTextToCanvas = async (canvas, str, fontSet, fontSize, bgStyle, borderStyle) => {
+    let editedCanvas = editCanvas(
+        canvas,
+        str,
+        fontSize,
+        bgStyle,
+        borderStyle
+    );
 
     const ctx = editedCanvas.getContext('2d');
     ctx.font = `${fontSize}px serif`;
 
     // Set the starting point
-    let currentX = getPaddingWidth(fontSize) / 1.5 ;
-    let currentY = getPaddingHeight(fontSize);
+    const getNewStartX = (getPaddingWidth(fontSize) / 1.5) + getAddedBorderWidth(borderStyle);
+    let currentX = getNewStartX;
+    let currentY = (getPaddingHeight(fontSize) + getAddedBorderWidth(borderStyle));
 
     // Draw each row of a letter then adds spacing or a newline
     for (const c of str) {
@@ -112,7 +138,7 @@ const addTextToCanvas = async (canvas, str, fontSet, fontSize, bgStyle) => {
             currentX = topX + spacing;
         } else {
             currentY = topY + spacing + fontSize;
-            currentX = getPaddingWidth(fontSize) / 1.5;
+            currentX = getNewStartX;
         }
     }
     return editedCanvas;

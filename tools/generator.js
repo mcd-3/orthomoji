@@ -22,6 +22,7 @@ class Orthomoji {
         this.bgStyle = null;
         this.spaceEmoji = ' ';
         this.emojiSize = 36;
+        this.borderStyle = null;
     }
 
     /**
@@ -93,6 +94,19 @@ class Orthomoji {
     }
 
     /**
+     * Sets the border size, colour, and style
+     */
+    setBorder(width, color) {
+        this.borderStyle = {
+            width,
+            color,
+            style: [],
+            join: 'miter'
+        };
+        return this;
+    }
+
+    /**
      * Generates an emoji-text image and saves it to a destination
      * =Mandatory
      * 
@@ -112,12 +126,14 @@ class Orthomoji {
             throw new Error(errorStr);
         }
 
+        const borderObj = (this.borderStyle === null) ? {} : this.borderStyle;
         const editedCanvas = await addTextToCanvas(
             this.#canvas,
             this.text,
             emojifyFont(font, this.emoji, this.spaceEmoji),
             this.emojiSize,
-            this.bgStyle
+            this.bgStyle,
+            borderObj
         );
 
         saveToDestination(destination, editedCanvas);
