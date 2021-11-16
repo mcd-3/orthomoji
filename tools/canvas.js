@@ -39,11 +39,34 @@ const getPaddingWidth = fontSize => fontSize * 2;
  */
 const getPaddingHeight = fontSize => fontSize * 2;
 
+/**
+ * Gets the amount of pixels that a border added to the padding
+ *
+ * @param {object} borderStyle - Border object that contains border parameters
+ * @returns {number} - Width of the border in px
+ */
 const getAddedBorderWidth = borderStyle => {
     return (borderStyle.width !== undefined)
         ? borderStyle.width
         : 0;
 }
+
+/**
+ * Changes the background style/colour of a canvas
+ *
+ * @param {HTMLCanvasElement} canvas - Canvas to change BG colour of
+ * @param {string} style - Valid CSS colour
+ * @returns {HTMLCanvasElement} Newly edited canvas element
+ */
+ const changeBGCanvas = (canvas, style) => {
+    try {
+        canvas.getContext('2d').fillStyle = style;
+        canvas.getContext('2d').fillRect(0, 0, canvas.width, canvas.height);
+        return canvas;
+    } catch (e) {
+        throw new Error(`${style} is not a correct style for the background`);
+    }
+};
 
 /**
  * Resizes a canvas to properly apply text and changes the background style if needed
@@ -71,23 +94,6 @@ const editCanvas = (canvas, str, fontSize, style, borderStyle) => {
     const newCanvas = drawBorderToCanvas(canvas, borderStyle);
 
     return (style !== null) ? changeBGCanvas(newCanvas, style) : newCanvas;
-};
-
-/**
- * Changes the background style/colour of a canvas
- *
- * @param {HTMLCanvasElement} canvas - Canvas to change BG colour of
- * @param {string} style - Valid CSS colour
- * @returns {HTMLCanvasElement} Newly edited canvas element
- */
-const changeBGCanvas = (canvas, style) => {
-    try {
-        canvas.getContext('2d').fillStyle = style;
-        canvas.getContext('2d').fillRect(0, 0, canvas.width, canvas.height);
-        return canvas;
-    } catch (e) {
-        throw new Error(`${style} is not a correct style for the background`);
-    }
 };
 
 /**

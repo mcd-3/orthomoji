@@ -1,3 +1,10 @@
+/**
+ * Checks if an object contains the width, color, style, join parameters
+ * and checks if they are their appropriate types
+ *
+ * @param {object} borderObj - Border style parameter object
+ * @returns {bool} True if object is valid, false if not
+ */
 const isValidStyleObj = borderObj => {
     return (
         borderObj !== null
@@ -8,6 +15,13 @@ const isValidStyleObj = borderObj => {
     );
 };
 
+/**
+ * Draws a border to a canvas
+ *
+ * @param {HTMLCanvasElement} canvas - Canvas where we will draw the border
+ * @param {object} borderObj - Border style parameter object
+ * @returns {HTMLCanvasElement} Newly bordered canvas
+ */
 const drawBorderToCanvas = (canvas, borderObj) => {
     if (isValidStyleObj(borderObj)) {
         const ctx = canvas.getContext('2d');

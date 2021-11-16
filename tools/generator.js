@@ -95,6 +95,10 @@ class Orthomoji {
 
     /**
      * Sets the border size, colour, and style
+     *
+     * @param {number} width - Width of the border in px
+     * @param {string} color - Color of the border
+     * @returns {this} Chain with other functions to generate an image
      */
     setBorder(width, color) {
         this.borderStyle = {
