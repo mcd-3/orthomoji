@@ -36,17 +36,18 @@ const saveCompression = (destination, canvas, compressionLvl) => {
 
     const dataURL = canvas.toDataURL();
     const data = dataURL.replace(/^data:image\/\w+;base64,/, "");
-    fs.writeFileSync(`${buildSrc}${tempFileName}`, new Buffer.from(data, 'base64'));
+    const buffer = new Buffer.from(data, 'base64')
+    fs.writeFileSync(`${buildSrc}${tempFileName}`, buffer);
 
     sharp(`${buildSrc}${tempFileName}`)
         .png({ compressionLevel: compressionLvl, force: true })
         .toFile(`${destination}${fileName}`, err => {
             if (err !== null) {
+                console.log(err)
                 logger('Sharp is not supported on this device.');
             }
+            fs.unlinkSync(`${buildSrc}${tempFileName}`);
         });
-
-    fs.unlinkSync(`${buildSrc}${tempFileName}`);
 };
 
 /**
