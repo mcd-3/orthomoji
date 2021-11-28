@@ -1,6 +1,6 @@
 {
   "name": "orthomoji",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Create text art with emojis!",
   "type": "module",
   "main": "index.js",
