@@ -1,3 +1,4 @@
+import { logger } from './logger.js';
 import fs from 'fs';
 import pkg from 'sharp';
 const sharp = pkg;
@@ -14,7 +15,7 @@ const saveNoCompression = (destination, canvas) => {
     const stream = canvas.pngStream();
     stream.on('data', chunk => out.write(chunk));
     stream.on('end', chunk => {
-        console.log(`Image successfully saved to ${destination} as ${fileName}`);
+        logger(`Image successfully saved to ${destination} as ${fileName}`);
         stream.destroy();
     });
 };
@@ -41,8 +42,7 @@ const saveCompression = (destination, canvas, compressionLvl) => {
         .png({ compressionLevel: compressionLvl, force: true })
         .toFile(`${destination}${fileName}`, err => {
             if (err !== null) {
-                console.log(err)
-                console.log('Sharp is not supported on this device.');
+                logger('Sharp is not supported on this device.');
             }
         });
 
