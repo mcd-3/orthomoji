@@ -23,6 +23,7 @@ class Orthomoji {
         this.spaceEmoji = ' ';
         this.emojiSize = 36;
         this.borderStyle = null;
+        this.compressionLvl = null;
     }
 
     /**
@@ -111,6 +112,20 @@ class Orthomoji {
     }
 
     /**
+     * Sets the level of compression to use when generating an image
+     *
+     * @param {number} level - Level of PNG compression
+     * @returns {this} Chain with other functions to generate an image
+     */
+    setPNGCompressionLevel(level) {
+        if (level >= 0 && level <= 9) {
+            this.compressionLvl = level;
+            return this;
+        }
+        throw new Error('PNG compression level must be between 0 and 9.');
+    }
+
+    /**
      * Generates an emoji-text image and saves it to a destination
      * =Mandatory
      * 
@@ -140,7 +155,11 @@ class Orthomoji {
             borderObj
         );
 
-        saveToDestination(destination, editedCanvas);
+        saveToDestination(
+            destination,
+            editedCanvas,
+            this.compressionLvl
+        );
     }
 };
 
