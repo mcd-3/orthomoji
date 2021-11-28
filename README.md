@@ -66,6 +66,7 @@ Here is a list of all function paramaters you will need to successfully build an
 
 ### setBorder
 **width: Number** - Size (in pixels) for the image border
+
 **color: String** - Valid color to use for the border
 
 ### setSpaceEmoji
