@@ -307,6 +307,13 @@ const font = {
         O,O,O,O,n,
         O,O,O,O,n
     ],
+    ":": [
+        O,X,X,O,n,
+        O,X,X,O,n,
+        O,O,O,O,n,
+        O,X,X,O,n,
+        O,X,X,O,n
+    ],
 };
 
 export { font };
