@@ -18,8 +18,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "canvas": "^2.8.0",
-    "node-canvas-with-twemoji": "^0.1.6",
-    "sharp": "^0.29.3"
+    "canvas": "2.8.0",
+    "node-canvas-with-twemoji": "0.1.6",
+    "sharp": "0.29.3"
   }
 }
