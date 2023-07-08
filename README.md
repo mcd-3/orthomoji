@@ -6,6 +6,8 @@ Create image-based messages with emojis!
 ![Orthomoji](./assets/orthomoji_title.png)
 
 ## Installation
+NOTE: This package requires Node 16.20.1. You may encounter errors if you use another version!
+
 You may install Orthomoji using NPM:
 ```shell
 // From NPM directly
