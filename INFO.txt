@@ -1,0 +1,5 @@
+[ORTHOMOJI]
+
+This repository was cloned and edited by the setup-orthomoji.sh script.
+Orthomoji and this script were created by Matthew Carvalho-Dagenais.
+For more information, please see the respective licenses for this project and for orthomoji.
